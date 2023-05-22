@@ -11,17 +11,15 @@
     <table class = "table">
         <thead class = "table-dark">
             <tr>
-                <th>ID</th>
                 <th>이름</th>
                 <th>비밀번호</th>
                 <th>성별</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each = "user,index : ${users}">
-                <td th:text = "${user.userId}"></td>
+            <tr th:each = "user : ${users}">
                 <td >
-                    <a th:href = "@{/board/{id}(id = ${index.index})}" th:text = "${user.userName}"></a>
+                    <a th:href = "@{/board/{id}(id = ${user.userId})}" th:text = "${user.userName}"></a>
                 </td>
                 <td th:text = "${user.password}"></td>
                 <td th:text = "${user.sex}"></td>

@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../bootstrap.min.css}">
+    <style>
 
+        h4{
+            text-align: center;
+            margin-top : 30px;
+        }
+
+        .container{
+            width : 300px;
+            border-color : black;
+            border-style : solid;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .date{
+            display: flex;
+            margin: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .submit-btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <div>
+        <h4>회원 정보 수정 폼</h4>
+    </div>
+</div>
+
+<div class = "container">
+    <div>
+        <label for = "userName">회원 이름</label>
+        <input type = "text" id = "userName" name = "userName" class = "form-control" th:value="${user.userName}" readonly>
+    </div>
+    <div>
+        <label for = "password">회원 비밀번호</label>
+        <input type = "text" id = "password" name = "password" class = "form-control" th:value="${user.password}" readonly>
+    </div>
+    <div>
+        <label for = "sex">회원 성별</label>
+        <input type = "text" id = "sex" name = "sex" class = "form-control" th:value="${user.sex}" readonly>
+    </div>
+</div>
+<div class = "col align-items-center">
+    <button class = "btn btn-secondary btn-lg  onclick="location.href ='test' type="button">상품수정</button>
+</div>
+</div>
+
+
+</body>
+</html>
 </body>
 </html>

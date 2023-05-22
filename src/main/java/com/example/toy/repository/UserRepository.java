@@ -36,11 +36,13 @@ public class UserRepository implements MariaRepository{
 
     @Override
     public User findById(Integer userId) {
-        return null;
+        return mapper.findById(userId);
     }
 
     @Override
     public List<User> findAll() {
         return mapper.findAll();
     }
+
+
 }

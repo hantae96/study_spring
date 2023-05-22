@@ -12,5 +12,5 @@ public interface UserMapper {
 
     void save(InputDTO inputDTO);
     List<User> findAll();
-
+    User findById(Integer userId);
 }

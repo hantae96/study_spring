@@ -14,4 +14,8 @@
         SELECT userId,userName,password,sex from users;
     </select>
 
+    <select id = "findById" resultType="User">
+        SELECT userName,password,sex from users where userId = #{userId};
+    </select>
+
 </mapper>

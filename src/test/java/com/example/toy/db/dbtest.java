@@ -3,6 +3,7 @@ package com.example.toy.db;
 import com.example.toy.domain.User;
 import com.example.toy.dto.InputDTO;
 import com.example.toy.repository.UserRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,12 @@ public class dbtest {
         for (User user : all) {
             System.out.println("user.getUserName() = " + user.getUserName());
         }
+    }
+
+    @Test
+    @DisplayName("아이디로 찾기")
+    public void findOne(){
+        User user = repository.findById(48);
+        Assertions.assertThat(user.getUserName()).isEqualTo("아이유");
     }
 }
