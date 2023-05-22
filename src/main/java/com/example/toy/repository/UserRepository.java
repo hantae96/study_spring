@@ -1,18 +1,46 @@
 package com.example.toy.repository;
 
 import com.example.toy.domain.User;
+import com.example.toy.dto.InputDTO;
+import com.example.toy.dto.UpdateDTO;
+import com.example.toy.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
-public interface UserRepository {
-    String getNow();
+@Repository
+public class UserRepository implements MariaRepository{
 
-    void save(String userName);
 
-    void deleteAll();
+    private final UserMapper mapper;
+    @Autowired
+    public UserRepository(UserMapper mapper) {
+        this.mapper = mapper;
+    }
 
-    User findOne(Integer userId);
+    @Override
+    public void save(InputDTO inputDTO) {
+        mapper.save(inputDTO);
+    }
 
-    List<User> findAll();
+    @Override
+    public User update(Integer userId, UpdateDTO updateDTO) {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer userId) {
+
+    }
+
+    @Override
+    public User findById(Integer userId) {
+        return null;
+    }
+
+    @Override
+    public List<User> findAll() {
+        return mapper.findAll();
+    }
 }

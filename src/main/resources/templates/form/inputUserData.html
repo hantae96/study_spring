@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" type="text/css" th:href="@{../bootstrap.min.css}">
+  <style>
+
+    h4{
+      text-align: center;
+      margin-top : 30px;
+    }
+
+    .container{
+      width : 300px;
+      border-color : black;
+      border-style : solid;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    .date{
+      display: flex;
+      margin: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+    .submit-btn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+
+</head>
+<body>
+<div>
+  <div>
+    <h4>회원 가입 입력 폼</h4>
+  </div>
+</div>
+
+<div class = "container">
+  <form action= "user" method="post">
+    <div class="mb-3">
+      <label for="name" class="form-label">이름</label>
+      <input type="text" class="form-control" id="name" name = "userName" aria-describedby="emailHelp"
+             placeholder="이름을 입력하세요">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">비밀번호</label>
+      <input type="text" class="form-control" id="password" name = "password"
+      placeholder="비밀번호를 입력하세요">
+    </div>
+    <div>
+      <label>성별:</label>
+      <div>
+        <label for="male">
+          <input type="radio" id="male" name="sex" value="male">
+          남성
+        </label>
+        <label for="female">
+          <input type="radio" id="female" name="sex" value="female">
+          여성
+        </label>
+      </div>
+    </div>
+
+    <div class = "submit-btn">
+      <button type="submit" class="btn btn-primary">제출</button>
+    </div>
+  </form>
+</div>
+
+
+</body>
+</html>

@@ -10,41 +10,36 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class TmpUserRepository implements UserRepository {
+public class TmpUserRepository{
 
-    private final TmpMapper mapper;
-
-    @Autowired
-    SqlSession sqlSession;
-    @Autowired
-    public TmpUserRepository(TmpMapper mapper) {
-        this.mapper = mapper;
-    }
-
-    @Override
-    public String getNow() {
-        return mapper.getNow();
-    }
-
-    @Override
-    public void save(String userName) {
-        mapper.save(userName);
-    }
-
-    @Override
-    public void deleteAll() {
-        mapper.deleteAll();
-    }
-
-    @Override
-    public User findOne(Integer userId) {
-        return mapper.findById(userId);
-    }
-
-    @Override
-    public List<User> findAll() {
-        return mapper.findAll();
-    }
-
+//    private final TmpMapper mapper;
+//
+//    @Autowired
+//    SqlSession sqlSession;
+//    @Autowired
+//    public TmpUserRepository(TmpMapper mapper) {
+//        this.mapper = mapper;
+//    }
+//
+//    @Override
+//    public void save(String userName) {
+//        mapper.save(userName);
+//    }
+//
+//    @Override
+//    public void deleteAll() {
+//        mapper.deleteAll();
+//    }
+//
+//    @Override
+//    public User findOne(Integer userId) {
+//        return mapper.findById(userId);
+//    }
+//
+//    @Override
+//    public List<User> findAll() {
+//        return mapper.findAll();
+//    }
+//
 
 }
