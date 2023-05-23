@@ -8,7 +8,7 @@ public interface MariaRepository {
 
     void save(InputDTO inputDTO);
 
-    User update(Integer userId, UpdateDTO updateDTO);
+    void update(UpdateDTO updateDTO);
 
     void delete(Integer userId);
 

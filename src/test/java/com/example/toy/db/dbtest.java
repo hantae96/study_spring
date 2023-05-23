@@ -2,6 +2,7 @@ package com.example.toy.db;
 
 import com.example.toy.domain.User;
 import com.example.toy.dto.InputDTO;
+import com.example.toy.dto.UpdateDTO;
 import com.example.toy.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -46,5 +47,20 @@ public class dbtest {
     public void findOne(){
         User user = repository.findById(48);
         Assertions.assertThat(user.getUserName()).isEqualTo("아이유");
+    }
+
+    @Test
+    @DisplayName("유저 정보 수정")
+    public void update(){
+        UpdateDTO updateDTO = new UpdateDTO();
+        updateDTO.setUserId(34);
+        updateDTO.setUserName("수정된 한태");
+        updateDTO.setPassword("99999");
+        updateDTO.setSex("남");
+
+        repository.update(updateDTO);
+
+        User user = repository.findById(34);
+        Assertions.assertThat(user.getUserName()).isEqualTo("수정된 한태");
     }
 }

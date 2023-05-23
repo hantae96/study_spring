@@ -12,6 +12,9 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{../bootstrap.min.css}">
     <style>
+        .btn {
+            margin: 10px;
+        }
 
         h4{
             text-align: center;
@@ -20,6 +23,7 @@
 
         .container{
             width : 300px;
+            height: 400px;
             border-color : black;
             border-style : solid;
         }
@@ -61,7 +65,9 @@
 </div>
 
 <div class = "container">
+    <form action="/card" method="post">
     <div>
+        <input type = "hidden" name = "userId" th:value = "${id}">
         <label for = "userName">회원 이름</label>
         <input type = "text" id = "userName" name = "userName" class = "form-control" th:value="${user.userName}" readonly>
     </div>
@@ -73,12 +79,29 @@
         <label for = "sex">회원 성별</label>
         <input type = "text" id = "sex" name = "sex" class = "form-control" th:value="${user.sex}" readonly>
     </div>
-</div>
-<div class = "col align-items-center">
-    <button class = "btn btn-secondary btn-lg  onclick="location.href ='test' type="button">상품수정</button>
+    <div class = "btn class">
+        <button class = "btn btn-outline-primary  onclick="location.href ='test' type="button">상품수정</button>
+        <button class = "btn btn-outline-secondary"  th:onclick="|location.href='@{/board/view}'|" type="button">목록으로</button>
+    </div>
+        <button class = "btn btn-outline-danger" type="submit">수정 사항 제출</button>
+    </form>
+
 </div>
 </div>
 
+<script>
+    document.querySelectorAll(".btn")[0].addEventListener("click",function (){
+        removeReadOnly();
+    })
+
+    function removeReadOnly(){
+        var inputs= document.querySelectorAll("input[type = 'text']");
+        inputs.forEach(function(input){
+            input.readOnly = false;
+        });
+    }
+
+</script>
 
 </body>
 </html>

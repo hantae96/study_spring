@@ -14,7 +14,7 @@ public interface TmpMapper {
     String getNow();
     void save(@Param("userName") String userName);
 
-    void deleteAll();
+    void deleteAlel();
 
     User findById(@Param("id") Integer userId);
 

@@ -26,7 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/view")
+    @GetMapping("/board/view")
     public String board(@ModelAttribute InputDTO inputDTO,Model model){
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);

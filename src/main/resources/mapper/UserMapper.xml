@@ -18,4 +18,10 @@
         SELECT userName,password,sex from users where userId = #{userId};
     </select>
 
+    <update id = "update">
+        update users
+        set userName = #{userName} , password = #{password} , sex = #{sex}
+        where userId = #{userId}
+    </update>
+
 </mapper>

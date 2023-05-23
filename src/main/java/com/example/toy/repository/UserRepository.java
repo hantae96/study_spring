@@ -25,8 +25,8 @@ public class UserRepository implements MariaRepository{
     }
 
     @Override
-    public User update(Integer userId, UpdateDTO updateDTO) {
-        return null;
+    public void update(UpdateDTO updateDTO) {
+        mapper.update(updateDTO);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.toy.service;
 
 import com.example.toy.domain.User;
 import com.example.toy.dto.InputDTO;
+import com.example.toy.dto.UpdateDTO;
 import com.example.toy.repository.MariaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,9 @@ public class UserService {
     // 유저 찾기 제공
     public User findUserById(Integer userId){
         return repository.findById(userId);
+    }
+
+    public void updateUserData(UpdateDTO updateDTO){
+        repository.update(updateDTO);
     }
 }
