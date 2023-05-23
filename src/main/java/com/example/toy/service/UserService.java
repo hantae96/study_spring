@@ -37,4 +37,8 @@ public class UserService {
     public void updateUserData(UpdateDTO updateDTO){
         repository.update(updateDTO);
     }
+
+    public void deleteUserData(Integer userId){
+        repository.delete(userId);
+    }
 }

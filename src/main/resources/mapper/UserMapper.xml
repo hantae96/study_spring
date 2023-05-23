@@ -11,7 +11,7 @@
     </insert>
 
     <select id = "findAll" resultType="User">
-        SELECT userId,userName,password,sex from users;
+        SELECT userId,userName,password,sex from users order by userId desc;
     </select>
 
     <select id = "findById" resultType="User">
@@ -23,5 +23,10 @@
         set userName = #{userName} , password = #{password} , sex = #{sex}
         where userId = #{userId}
     </update>
+
+    <delete id="delete">
+        delete from users
+        where userId = ${userId}
+    </delete>
 
 </mapper>

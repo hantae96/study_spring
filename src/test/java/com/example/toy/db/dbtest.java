@@ -63,4 +63,11 @@ public class dbtest {
         User user = repository.findById(34);
         Assertions.assertThat(user.getUserName()).isEqualTo("수정된 한태");
     }
+
+    @Test
+    @DisplayName("유저 정보 삭제")
+    public void delete(){
+        Integer userId = 22;
+        repository.delete(userId);
+    }
 }

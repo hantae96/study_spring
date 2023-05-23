@@ -16,4 +16,6 @@ public interface UserMapper {
     User findById(Integer userId);
 
     void update(UpdateDTO updateDTO);
+
+    void delete(Integer userId);
 }

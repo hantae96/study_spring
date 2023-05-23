@@ -31,7 +31,7 @@ public class UserRepository implements MariaRepository{
 
     @Override
     public void delete(Integer userId) {
-
+        mapper.delete(userId);
     }
 
     @Override

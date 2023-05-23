@@ -45,7 +45,7 @@ public class UserController {
         // 리다이렉트는 객체 안에 값을 넣을때 String으로 변환해서 넣는다 -> url에 쿼리파라미터 형식으로 넣기 때문에
         // 하지만 객체는 못넣는다 객체는 addFlashAttribute를 사용해서 넣어야된다.
         redirectAttributes.addFlashAttribute("inputDTO",inputDTO);
-        return "redirect:/view";
+        return "redirect:/board/view";
     }
 
 }

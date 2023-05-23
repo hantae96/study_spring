@@ -80,16 +80,26 @@
         <input type = "text" id = "sex" name = "sex" class = "form-control" th:value="${user.sex}" readonly>
     </div>
     <div class = "btn class">
-        <button class = "btn btn-outline-primary  onclick="location.href ='test' type="button">상품수정</button>
+        <button class = "btn btn-outline-primary" type="button">정보 수정</button>
+        <button class = "btn btn-outline-success" type="submit">수정 사항 제출</button>
         <button class = "btn btn-outline-secondary"  th:onclick="|location.href='@{/board/view}'|" type="button">목록으로</button>
     </div>
-        <button class = "btn btn-outline-danger" type="submit">수정 사항 제출</button>
+    </form>
+
+    <form action = "/card/delete" method="post">
+        <input type = "hidden" class = "test" name = "userId" th:value = "${id}">
+        <button class = "delete-btn btn btn-outline-danger" type="submit">정보 삭제</button>
     </form>
 
 </div>
 </div>
 
 <script>
+    document.querySelector(".delete-btn").addEventListener("click",function (e){
+        console.log("삭제 버튼 클릭");
+    })
+
+
     document.querySelectorAll(".btn")[0].addEventListener("click",function (){
         removeReadOnly();
     })
@@ -100,6 +110,7 @@
             input.readOnly = false;
         });
     }
+
 
 </script>
 
