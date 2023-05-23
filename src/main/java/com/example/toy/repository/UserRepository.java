@@ -44,5 +44,10 @@ public class UserRepository implements MariaRepository{
         return mapper.findAll();
     }
 
+    @Override
+    public Integer findByName(String userName) {
+        return mapper.findByName(userName);
+    }
+
 
 }

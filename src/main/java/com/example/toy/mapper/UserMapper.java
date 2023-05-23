@@ -15,6 +15,8 @@ public interface UserMapper {
     List<User> findAll();
     User findById(Integer userId);
 
+    Integer findByName(String userName);
+
     void update(UpdateDTO updateDTO);
 
     void delete(Integer userId);

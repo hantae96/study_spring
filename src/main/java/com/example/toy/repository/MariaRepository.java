@@ -15,4 +15,6 @@ public interface MariaRepository {
     User findById(Integer userId);
 
     List<User> findAll();
+
+    Integer findByName(String userName);
 }

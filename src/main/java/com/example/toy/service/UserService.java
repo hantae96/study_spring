@@ -19,7 +19,6 @@ public class UserService {
         this.repository = repository;
     }
 
-    // 유저 등록
     public void register(InputDTO inputDTO){
         repository.save(inputDTO);
     }
@@ -27,12 +26,14 @@ public class UserService {
     public List<User> getAllUsers(){
         return repository.findAll();
     }
-    // 유저 정보 수정
-    // 유저 삭제
-    // 유저 찾기 제공
     public User findUserById(Integer userId){
         return repository.findById(userId);
     }
+
+    public Integer findByName(String userName){
+        return repository.findByName(userName);
+    }
+
 
     public void updateUserData(UpdateDTO updateDTO){
         repository.update(updateDTO);

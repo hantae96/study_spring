@@ -38,7 +38,7 @@ public class dbtest {
     public void viewAll(){
         List<User> all = repository.findAll();
         for (User user : all) {
-            System.out.println("user.getUserName() = " + user.getUserName());
+            System.out.println("user.getUserName() = " + user.getUserId());
         }
     }
 
@@ -69,5 +69,12 @@ public class dbtest {
     public void delete(){
         Integer userId = 22;
         repository.delete(userId);
+    }
+
+    @Test
+    public void findByName(){
+        String userName = "최한태";
+        Integer num = repository.findByName(userName);
+        Assertions.assertThat(num).isSameAs(1);
     }
 }

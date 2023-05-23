@@ -95,12 +95,8 @@
 </div>
 
 <script>
-    document.querySelector(".delete-btn").addEventListener("click",function (e){
-        console.log("삭제 버튼 클릭");
-    })
-
-
-    document.querySelectorAll(".btn")[0].addEventListener("click",function (){
+    var 수정버튼 = document.querySelectorAll(".btn")[0];
+    수정버튼.addEventListener("click",function (){
         removeReadOnly();
     })
 

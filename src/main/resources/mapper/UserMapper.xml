@@ -18,6 +18,10 @@
         SELECT userName,password,sex from users where userId = #{userId};
     </select>
 
+    <select id = "findByName" resultType="Integer">
+        SELECT userId FROM users where userName = #{userName};
+    </select>
+
     <update id = "update">
         update users
         set userName = #{userName} , password = #{password} , sex = #{sex}
