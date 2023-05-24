@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+<style>
+    .container{
+        border : black solid;
+        margin : 100px;
+        padding: 50px;
+    }
+</style>
+</head>
+<body>
+<div class = "container">
+    <h1>유저 정보 테이블</h1>
+    <table class = "table table-hover">
+        <thead class = "table-info">
+        <tr>
+            <th>회원 아이디</th>
+            <th>비밀번호</th>
+            <th>생년월일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "member : ${members}">
+            <td ><a th:href = "@{/members/{id}(id = ${member.memberId})}" th:text = "${member.memberId}"></a></td>
+            <td th:text = "${member.memberName}"></td>
+            <td th:text = "${member.dateOfBirth}"></td>
+
+        </tr>
+        </tbody>
+        </thead>
+    </table>
+</div>
+
+
+</body>
+</html>

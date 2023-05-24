@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../bootstrap.min.css}">
+    <style>
+        .btn {
+            margin: 15px;
+        }
+        .btn-class{
+            display: flex;
+            justify-content: center;
+        }
+
+        .submit-btn{
+            visibility: hidden;
+        }
+        .update-btn{
+            visibility: visible;
+        }
+
+        h4{
+            text-align: center;
+            margin-top : 30px;
+        }
+
+        .container{
+            width : 300px;
+            height: 400px;
+            border-color : black;
+            border-style : solid;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .date{
+            display: flex;
+            margin: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .submit-btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        hr {
+            border: 1px solid black; /* 구분선의 두께와 색상을 지정합니다 */
+            border-style: solid; /* 구분선의 스타일을 점선으로 지정합니다 */
+            margin: 20px 0; /* 구분선의 위아래 여백을 지정합니다 */
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <div>
+        <h4>회원 정보 수정 폼</h4>
+    </div>
+</div>
+
+<div class = "container">
+    <form action="/member/update" method="post">
+    <div>
+        <label for = "memberId">회원 아이디</label>
+        <input type = "text" id = "memberId" name = "memberId" class = "form-control" th:value="${member.memberId}" readonly>
+    </div>
+    <div>
+        <label for = "password">회원 비밀번호</label>
+        <input type = "text" id = "password" name = "password" class = "form-control" th:value="${member.password}" readonly>
+    </div>
+
+        <hr>
+
+        <div>
+        <label for = "memberName">회원 이름</label>
+        <input type = "text" id = "memberName" name = "memberName" class = "form-control" th:value="${member.memberName}" readonly>
+    </div>
+    <div>
+        <label for = "dateOfBirth">회원 생년월일</label>
+        <input type = "text" id = "dateOfBirth" name = "dateOfBirth" class = "form-control" th:value="${member.dateOfBirth}" readonly>
+    </div>
+    <div class = "btn-class">
+        <button class = "update-btn btn btn-outline-primary" type="button">정보 수정</button>
+        <button class = "submit-btn btn btn-outline-primary" type="submit">정보 제출</button>
+    </div>
+    </form>
+    <div class = "btn-class">
+        <form action = "/member/delete" method="post">
+            <input type = "hidden" name = "memberId" th:value = "${member.memberId}">
+            <button class = " btn btn-outline-secondary"  th:onclick="|location.href='@{/members}'|" type="button">목록으로</button>
+            <button class = "delete-btn btn btn-outline-danger" type="submit">정보 삭제</button>
+        </form>
+    </div>
+</div>
+</div>
+
+<script>
+    document.querySelectorAll(".btn")[0].addEventListener("click",function (e){
+        removeReadOnly();
+        changeBtn();
+        e.preventDefault();
+    })
+
+    function removeReadOnly(){
+        var inputs= document.querySelectorAll("input[type = 'text']");
+        inputs.forEach(function(input){
+            input.readOnly = false;
+        });
+    }
+
+    function changeBtn() {
+        var btn = document.querySelector(".update-btn");
+        btn.style.visibility = "hidden";
+        var btn = document.querySelector(".submit-btn");
+        btn.style.visibility = "visible";
+    }
+
+
+
+</script>
+
+</body>
+</html>
+</body>
+</html>
