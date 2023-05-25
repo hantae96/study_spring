@@ -96,15 +96,13 @@
    }).then(response => response.json())
            .then(data => {
              const check = data.code;
-             const message =
+             let message = data.defaultMassage;
              console.log(data);
              if (check == "valid"){
                window.location.href = 'http://localhost:9090/main';
              }else{
                const notice = document.querySelector(".notice");
                notice.textContent = message;
-
-               const message = data.defaultMassage;
                notice.style.visibility = 'visible';
              }
            })
