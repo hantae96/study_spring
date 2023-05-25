@@ -17,5 +17,5 @@ public interface BoardMapper {
 
     void update(BoardDTO boardDTO);
 
-//    void delete(String memberId);
+    void delete(Integer bid);
 }

@@ -32,9 +32,9 @@ public class BoardService {
         boardRepository.update(boardDTO);
     }
 
-//    public void deleteMember(String memberId){
-//        memberRepository.delete(memberId);
-//    }
+    public void deleteBoard(Integer bid){
+        boardRepository.delete(bid);
+    }
 
 
 }

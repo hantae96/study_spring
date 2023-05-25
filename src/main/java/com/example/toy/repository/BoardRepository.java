@@ -33,7 +33,7 @@ public class BoardRepository {
         return sqlSession.update("com.example.toy.mapper.BoardMapper.update", boardDTO);
     }
 
-//    public void delete(String memberId){
-//        sqlSession.delete("delete", memberId);
-//    }
+    public void delete(Integer bid){
+        sqlSession.delete("com.example.toy.mapper.BoardMapper.delete", bid);
+    }
 }

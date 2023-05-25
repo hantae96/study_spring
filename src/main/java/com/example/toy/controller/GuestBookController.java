@@ -57,4 +57,10 @@ public class GuestBookController {
         return "redirect:/guestBooks";
     }
 
+    @PostMapping("/guestBooks/delete")
+    public String deleteMember(@RequestParam Integer bid){
+        boardService.deleteBoard(bid);
+        return "redirect:/guestBooks";
+    }
+
 }
