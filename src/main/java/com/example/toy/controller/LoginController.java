@@ -3,33 +3,22 @@ package com.example.toy.controller;
 
 import com.example.toy.domain.Member;
 import com.example.toy.dto.LoginDTO;
+import com.example.toy.dto.LoginSuccess;
 import com.example.toy.exception.ValidError;
 import com.example.toy.service.MemberService;
-import com.example.toy.validator.ValidationResult;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.binding.BindingException;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.xml.validation.Validator;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.List;
 
 
 @Controller
@@ -53,7 +42,7 @@ public class LoginController {
         BindingResult bindingResult = e.getBindingResult();
         ObjectError globalError = bindingResult.getGlobalError();
         String defaultMessage = globalError.getDefaultMessage();
-        return new ValidError("valid", defaultMessage);
+        return new ValidError("invalid", defaultMessage);
     }
 
 
@@ -75,9 +64,12 @@ public class LoginController {
     }
 
 
-    @PostMapping("login")
-    public String login(@Valid @NotNull LoginDTO loginDTO, BindingResult bindingResult, HttpServletRequest request) throws BindException {
-            Member login = memberService.getMemberById(loginDTO.getMemberId());
+    @ResponseBody
+    @PostMapping(value = "login")
+    public LoginSuccess login(@Valid @ModelAttribute @NotNull LoginDTO loginDTO, BindingResult bindingResult, HttpServletRequest request) throws BindException {
+        log.info("요청 정보 {} ",loginDTO.getMemberId());
+        log.info("요청 정보 {} ",loginDTO.getPassword());
+        Member login = memberService.getMemberById(loginDTO.getMemberId());
             if (login == null || !login.getPassword().equals(loginDTO.getPassword())) {
                 bindingResult.reject("login", "아이디 혹은 비밀번호를 확인하세요");
             }
@@ -86,7 +78,10 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
-        return "main";
+
+        LoginSuccess loginSuccess = new LoginSuccess("valid", loginDTO.getMemberId());
+        log.info("다시 브라우저에게 성공 요청을 보냄 {}",loginSuccess.getCode());
+        return loginSuccess;
     }
 
     @PostMapping("join")

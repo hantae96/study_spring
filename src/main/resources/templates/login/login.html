@@ -39,6 +39,11 @@
     .inner-div{
     }
 
+    .notice{
+      color : red;
+      visibility: hidden;
+    }
+
 
   </style>
 
@@ -48,7 +53,7 @@
 <div class = "outer-div">
   <div class = "inner-div">
 <main class="form-signin w-100 m-auto">
-  <form action = "/login" method="post">
+  <form id = "loginForm">
     <h1 class="h3 mb-3 fw-normal">로그인 해주세요</h1>
 
     <div class="form-floating">
@@ -60,12 +65,16 @@
       <label for="password">비밀번호</label>
     </div>
 
+    <div>
+      <p class = "notice">경고창</p>
+    </div>
+
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" value="remember-me"> 기억해줘!
       </label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+    <button class="w-100 btn btn-lg btn-primary login-btn" type="submit">로그인</button>
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
   </form>
 </main>
@@ -74,21 +83,36 @@
 </div>
 
 <script>
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', '서버 URL'); // 요청할 서버 URL을 입력합니다.
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        var jsonResponse = JSON.parse(xhr.responseText);
-        console.log(jsonResponse)
-        // JSON 데이터를 읽고 조작하는 작업을 수행합니다.
-      } else {
-        // 서버 요청이 실패한 경우에 대한 처리를 수행합니다.
-      }
-    }
-  };
-  xhr.send();
+ document.querySelector(".login-btn").addEventListener("click",function(event){
+   // 폼의 기본 동작을 중지한다.
+   event.preventDefault();
 
+    const form = document.getElementById("loginForm");
+    const formData = new FormData(form);
+
+   fetch("http://localhost:9090/login",{
+     method : 'POST',
+     body : formData
+   }).then(response => response.json())
+           .then(data => {
+             const check = data.code;
+             const message =
+             console.log(data);
+             if (check == "valid"){
+               window.location.href = 'http://localhost:9090/main';
+             }else{
+               const notice = document.querySelector(".notice");
+               notice.textContent = message;
+
+               const message = data.defaultMassage;
+               notice.style.visibility = 'visible';
+             }
+           })
+           .catch(error => {
+             console.error('Error', error);
+           })
+
+ })
 </script>
 </body>
 </html>
