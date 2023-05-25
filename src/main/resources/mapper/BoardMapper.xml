@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.toy.mapper.BoardMapper">
+
+    <insert id ="save" parameterType="com.example.toy.domain.Board">
+        INSERT INTO boards (title,content,writer_id) values (#{title},#{content},#{writerId})
+    </insert>
+
+    <select id ="findAll" resultType="com.example.toy.dto.BoardDTO">
+        select bid,title,content,writer_id from boards;
+    </select>
+
+<!--    동적쿼리로 해야겠네는 검색기능에서 -->
+    <select id = "findOne" resultType="com.example.toy.dto.BoardDTO">
+        select bid,title,content,writer_id from boards where bid = #{bid};
+    </select>
+
+    <update id="update" parameterType="com.example.toy.domain.Board">
+        update boards set title = #{title},content = #{content}
+        where bid = #{bid}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from boards where bid = #{bid}
+    </delete>
+
+</mapper>

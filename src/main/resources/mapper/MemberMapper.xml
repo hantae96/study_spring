@@ -6,19 +6,19 @@
 
 <mapper namespace="com.example.toy.mapper.MemberMapper">
 
-    <insert id ="save" parameterType="Member">
+    <insert id ="save" parameterType="com.example.toy.domain.Member">
         INSERT INTO members (member_id,member_name,password,date_of_birth) values (#{memberId},#{memberName},#{password},#{dateOfBirth})
     </insert>
 
-    <select id ="findAll" resultType="Member">
+    <select id ="findAll" resultType="com.example.toy.domain.Member">
         select mid,member_id,member_name,password,date_of_birth from members;
     </select>
 
-    <select id = "findOne" resultType="Member">
+    <select id = "findOne" resultType="com.example.toy.domain.Member">
         select mid,member_id,member_name,password,date_of_birth from members where member_id = #{memberId};
     </select>
 
-    <update id="update" parameterType="Member">
+    <update id="update" parameterType="com.example.toy.domain.Member">
         update members set member_id = #{memberId},member_name = #{memberName},password = #{password}, date_of_birth = #{dateOfBirth}
         where member_id = #{memberId}
     </update>

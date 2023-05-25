@@ -11,12 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -47,7 +49,7 @@ public class LoginController {
 
 
     @GetMapping("/")
-    public String home(){
+    public String home(@SessionAttribute(name = "login",required = false) Member loginMember){
         return "home";
     }
 
@@ -65,22 +67,22 @@ public class LoginController {
 
 
     @ResponseBody
-    @PostMapping(value = "login")
-    public LoginSuccess login(@Valid @ModelAttribute @NotNull LoginDTO loginDTO, BindingResult bindingResult, HttpServletRequest request) throws BindException {
-        log.info("요청 정보 {} ",loginDTO.getMemberId());
-        log.info("요청 정보 {} ",loginDTO.getPassword());
+    @PostMapping("login")
+    public LoginSuccess login(@Valid @ModelAttribute @NotNull LoginDTO loginDTO, BindingResult bindingResult, Model model,HttpServletRequest request) throws BindException {
         Member login = memberService.getMemberById(loginDTO.getMemberId());
             if (login == null || !login.getPassword().equals(loginDTO.getPassword())) {
                 bindingResult.reject("login", "아이디 혹은 비밀번호를 확인하세요");
             }
-//        }
 
         if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
 
+        //로그인 성공시
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, login);
+
         LoginSuccess loginSuccess = new LoginSuccess("valid", loginDTO.getMemberId());
-        log.info("다시 브라우저에게 성공 요청을 보냄 {}",loginSuccess.getCode());
         return loginSuccess;
     }
 

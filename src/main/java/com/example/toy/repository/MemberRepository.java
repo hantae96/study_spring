@@ -20,18 +20,18 @@ public class MemberRepository{
     }
 
     public List<Member> findAll(){
-        return sqlSession.selectList("findAll");
+        return sqlSession.selectList("com.example.toy.mapper.MemberMapper.findAll");
     }
 
     public Member findOne(String memberId){
-        return sqlSession.selectOne("findOne", memberId);
+        return sqlSession.selectOne("com.example.toy.mapper.MemberMapper.findOne", memberId);
     }
 
     public Integer update(Member member){
-        return sqlSession.update("update", member);
+        return sqlSession.update("com.example.toy.mapper.MemberMapper.update", member);
     }
 
     public void delete(String memberId){
-        sqlSession.delete("delete", memberId);
+        sqlSession.delete("com.example.toy.mapper.MemberMapper.delete", memberId);
     }
 }
