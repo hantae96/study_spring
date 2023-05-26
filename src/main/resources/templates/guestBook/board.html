@@ -18,7 +18,11 @@
   <link href="../bootstrap.min.css" rel="stylesheet">
 
   <style>
+    .head{
+      display: flex;
+      justify-content: space-between;
 
+    }
     .mainContainer{
       border : black solid;
       margin : 100px;
@@ -168,10 +172,17 @@
       </ul>
     </header>
 
+
     <div class = "mainContainer">
 <!--      본문 작성-->
+      <div class = "head">
+        <h1>방명록</h1>
+        <div>
+            <button id = "goAddForm" type="submit" class="btn btn-outline-primary btn-lg">글작성</button>
+        </div>
 
-      <h1>방명록</h1>
+      </div>
+
       <table class = "table table-hover">
         <thead class = "table-info">
         <tr>
@@ -195,9 +206,11 @@
   </div>
 </main>
 
-
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
+<script>
+  document.getElementById("goAddForm").addEventListener("click",function (){
+    window.location.href = "http://localhost:9090/guestBook";
+  })
+</script>
 
 </body>
 </html>

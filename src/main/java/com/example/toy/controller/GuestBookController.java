@@ -30,12 +30,23 @@ public class GuestBookController {
     public String GuestBook(Model model){
         List<BoardDTO> boards = boardService.getAllBoards();
         BoardToViewBoardConverter converter = new BoardToViewBoardConverter(memberService);
-        // 모든 board에서 찾아서 새로운 객채로 다시 맵핑해야됨
-
         List<BoardViewDTO> convertBoard =boards.stream().map(board -> converter.convert(board)).collect(Collectors.toList());
+
         model.addAttribute("boards", convertBoard);
 
         return "guestBook/board";
+    }
+
+    @GetMapping("guestBook")
+    public String getBook(@SessionAttribute(name = SessionConst.LOGIN_MEMBER,required = false) Member loginMember,Model model){
+        model.addAttribute("writerName", loginMember.getMemberName());
+        model.addAttribute("writerId", loginMember.getMemberId());
+        return "guestBook/addBoard";
+    }
+    @PostMapping("guestBook")
+    public String addBook(@ModelAttribute Board board){
+        boardService.save(board);
+        return "redirect:/guestBooks";
     }
 
     @GetMapping("guestBooks/{id}")
@@ -62,5 +73,7 @@ public class GuestBookController {
         boardService.deleteBoard(bid);
         return "redirect:/guestBooks";
     }
+
+
 
 }
