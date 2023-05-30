@@ -1,11 +1,9 @@
 package com.example.toy.repository;
 
 import com.example.toy.domain.Board;
-import com.example.toy.domain.Member;
 import com.example.toy.dto.BoardDTO;
 import com.example.toy.dto.PageRequestDTO;
 import com.example.toy.mapper.BoardMapper;
-import com.example.toy.mapper.MemberMapper;
 import lombok.AllArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;

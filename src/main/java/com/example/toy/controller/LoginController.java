@@ -89,7 +89,7 @@ public class LoginController {
     @PostMapping("join")
     public String join(@ModelAttribute Member member){
         memberService.save(member);
-        return "redirect:/main";
+        return "redirect:/";
     }
 
 }

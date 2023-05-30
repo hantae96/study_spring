@@ -11,7 +11,7 @@
     </insert>
 
     <select id ="findAll" resultType="com.example.toy.dto.BoardDTO">
-        select bid,title,content,writer_id from boards;
+        select bid,title,content,writer_id from boards order by bid desc;
     </select>
 
 <!--    동적쿼리로 해야겠네는 검색기능에서 -->
