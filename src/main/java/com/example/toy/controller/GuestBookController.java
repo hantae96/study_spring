@@ -48,6 +48,18 @@ public class GuestBookController {
 
         return "guestBook/board";
     }
+    @GetMapping("guestBooks/add")
+    public String viewAddBook(@SessionAttribute(name = SessionConst.LOGIN_MEMBER,required = false)Member member,Model model){
+        model.addAttribute("writerName", member.getMemberName());
+        model.addAttribute("writerId", member.getMemberId());
+        return "guestBook/addBoard";
+
+    }
+    @PostMapping("/guestBooks")
+    public String addBook(@ModelAttribute Board board){
+        boardService.save(board);
+        return "redirect:/guestBooks";
+    }
 
     @GetMapping("guestBooks/{id}")
     public String selectMember(@PathVariable("id") Integer bid,
