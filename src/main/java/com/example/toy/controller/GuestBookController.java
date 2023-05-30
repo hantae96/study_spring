@@ -3,12 +3,14 @@ package com.example.toy.controller;
 
 import com.example.toy.common.BoardToViewBoardConverter;
 import com.example.toy.domain.Board;
+import com.example.toy.domain.Comment;
 import com.example.toy.domain.Member;
 import com.example.toy.dto.BoardDTO;
 import com.example.toy.dto.BoardViewDTO;
 import com.example.toy.dto.PageRequestDTO;
 import com.example.toy.dto.PageResponseDTO;
 import com.example.toy.service.BoardService;
+import com.example.toy.service.CommentService;
 import com.example.toy.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,8 @@ public class GuestBookController {
 
     private final BoardService boardService;
     private final MemberService memberService;
+    private final CommentService commentService;
+
 
     @GetMapping("guestBooks")
     public String GuestBook(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model){
@@ -48,6 +52,41 @@ public class GuestBookController {
 
         return "guestBook/board";
     }
+
+    @GetMapping("guestBooks/{id}")
+    public String selectBoard(@PathVariable("id") Integer bid,
+                              @SessionAttribute(name = SessionConst.LOGIN_MEMBER,required = false) Member loginMember,
+                              Model model){
+
+        // 상세 글 정보  가져오기
+        BoardDTO board = boardService.getBoardById(bid);
+
+        // 해당 댓글 가져오기
+        List<Comment> comments = commentService.getCommentByBoardId(bid);
+
+        // 상세 글 정보 추가
+        model.addAttribute("board", board);
+        model.addAttribute("loginMemberId", loginMember.getMemberId());
+
+        // 댓글 추가
+        model.addAttribute("comments", comments);
+
+        return "guestBook/viewBoard";
+    }
+
+    @GetMapping("guestBooks/update/{id}")
+    public String updateBoard(@PathVariable("id") Integer bid,
+                              @SessionAttribute(name = SessionConst.LOGIN_MEMBER,required = false) Member loginMember,
+                              Model model){
+
+        BoardDTO board = boardService.getBoardById(bid);
+
+        model.addAttribute("board", board);
+        model.addAttribute("loginMemberId", loginMember.getMemberId());
+        model.addAttribute("writerMemberId", board.getWriterId());
+
+        return "guestBook/editBoard";
+    }
     @GetMapping("guestBooks/add")
     public String viewAddBook(@SessionAttribute(name = SessionConst.LOGIN_MEMBER,required = false)Member member,Model model){
         model.addAttribute("writerName", member.getMemberName());
@@ -59,19 +98,6 @@ public class GuestBookController {
     public String addBook(@ModelAttribute Board board){
         boardService.save(board);
         return "redirect:/guestBooks";
-    }
-
-    @GetMapping("guestBooks/{id}")
-    public String selectMember(@PathVariable("id") Integer bid,
-                               @SessionAttribute(name = SessionConst.LOGIN_MEMBER,required = false) Member loginMember,
-                               Model model){
-
-        BoardDTO board = boardService.getBoardById(bid);
-
-        BoardToViewBoardConverter converter = new BoardToViewBoardConverter(memberService);
-        BoardViewDTO convertBoard = converter.convert(board);
-        model.addAttribute("board", convertBoard);
-        return "guestBook/editBoard";
     }
 
     @PostMapping("/guestBooks/update")
