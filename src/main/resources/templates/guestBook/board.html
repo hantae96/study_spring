@@ -19,6 +19,9 @@
 
   <style>
 
+    .active{
+      background-color: blue;
+    }
     .mainContainer{
       border : black solid;
       margin : 100px;
@@ -181,22 +184,53 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each = "board : ${boards}">
+        <tr th:each = "board : ${boards.dtoList}">
           <td ><a th:href = "@{/guestBooks/{id}(id = ${board.bid})}" th:text = "${board.title}"></a></td>
           <td th:text = "${board.content}"></td>
-          <td th:text = "${board.writerName}"></td>
+          <td th:text = "${board.writerId}"></td>
 
         </tr>
         </tbody>
         </thead>
       </table>
+
+      <div class="float-end">
+        <ul class="pagination flex-wrap">
+          <li class="page-item" th:if="${boards.prev}">
+            <a class="page-link" th:data-num="${boards.start -1}">Previous</a>
+          </li>
+
+          <li class="page-item" th:each="num : ${#numbers.sequence(boards.start, boards.end)}"
+              th:classappend="${boards.page == num} ? 'active' : ''">
+            <a class="page-link" th:data-num="${num}" th:text="${num}"></a>
+          </li>
+
+          <li class="page-item" th:if="${boards.next}">
+            <a class="page-link" th:data-num="${boards.end + 1}">Next</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
 
   </div>
 </main>
 
 
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.querySelector(".pagination").addEventListener("click",function (e){
+    e.preventDefault()
+    e.stopPropagation()
+
+    const target = e.target
+
+    if(target.tagName != 'A'){
+      return
+    }
+    const num = target.getAttribute("data-num")
+    self.location = "guestBooks?page="+num;
+  },false)
+</script>
 
 
 </body>

@@ -4,9 +4,12 @@ package com.example.toy.db;
 import com.example.toy.domain.Board;
 import com.example.toy.domain.Member;
 import com.example.toy.dto.BoardDTO;
+import com.example.toy.dto.PageRequestDTO;
+import com.example.toy.dto.PageResponseDTO;
 import com.example.toy.mapper.MemberMapper;
 import com.example.toy.repository.BoardRepository;
 import com.example.toy.repository.MemberRepository;
+import com.example.toy.service.BoardService;
 import com.example.toy.service.MemberService;
 import javafx.scene.media.MediaMarkerEvent;
 import org.assertj.core.api.Assertions;
@@ -22,11 +25,15 @@ import java.util.List;
 public class BoardTest {
 
     private final BoardRepository repository;
+    private final BoardService service;
 
     @Autowired
-    public BoardTest(BoardRepository repository) {
+    public BoardTest(BoardRepository repository, BoardService service) {
         this.repository = repository;
+        this.service = service;
     }
+
+
 
     @Test
     public void saveTest(){
@@ -38,17 +45,14 @@ public class BoardTest {
         repository.save(board);
     }
 
-    @Test
-    public void viewAll(){
-        List<BoardDTO> all = repository.findAll();
-        for (BoardDTO board : all) {
-            System.out.println("board.getTitle() = " + board.getBid());
-            System.out.println("board.getTitle() = " + board.getTitle());
-            System.out.println("board.getTitle() = " + board.getContent());
-            System.out.println("board.getTitle() = " + board.getWriterId());
+   @Test
+   public void testPaging(){
+       PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
+       PageResponseDTO<BoardDTO> responseDTO = service.getList(pageRequestDTO);
+       System.out.println(responseDTO);
 
-        }
-    }
+       responseDTO.getDtoList().stream().forEach(dto -> System.out.println(dto));
+   }
 
     @Test
     public void viewOne(){
@@ -69,6 +73,16 @@ public class BoardTest {
         BoardDTO findDTO = repository.findOne(4);
 
         Assertions.assertThat(findDTO).isEqualTo(boardDTO);
+    }
+
+    @Test
+    public void testSelectList(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .build();
+        List<BoardDTO> boardDTOList = repository.selectList(pageRequestDTO);
+        boardDTOList.forEach(dto -> System.out.println(dto));
     }
 
 }

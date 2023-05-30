@@ -3,6 +3,7 @@ package com.example.toy.repository;
 import com.example.toy.domain.Board;
 import com.example.toy.domain.Member;
 import com.example.toy.dto.BoardDTO;
+import com.example.toy.dto.PageRequestDTO;
 import com.example.toy.mapper.BoardMapper;
 import com.example.toy.mapper.MemberMapper;
 import lombok.AllArgsConstructor;
@@ -35,5 +36,13 @@ public class BoardRepository {
 
     public void delete(Integer bid){
         sqlSession.delete("com.example.toy.mapper.BoardMapper.delete", bid);
+    }
+
+    public List<BoardDTO> selectList(PageRequestDTO pageRequestDTO){
+        return sqlSession.selectList("com.example.toy.mapper.BoardMapper.selectList", pageRequestDTO);
+    }
+
+    public Integer getCount(){
+        return sqlSession.selectOne("com.example.toy.mapper.BoardMapper.getCount");
     }
 }

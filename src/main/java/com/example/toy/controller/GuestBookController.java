@@ -6,14 +6,18 @@ import com.example.toy.domain.Board;
 import com.example.toy.domain.Member;
 import com.example.toy.dto.BoardDTO;
 import com.example.toy.dto.BoardViewDTO;
+import com.example.toy.dto.PageRequestDTO;
+import com.example.toy.dto.PageResponseDTO;
 import com.example.toy.service.BoardService;
 import com.example.toy.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -27,13 +31,20 @@ public class GuestBookController {
     private final MemberService memberService;
 
     @GetMapping("guestBooks")
-    public String GuestBook(Model model){
-        List<BoardDTO> boards = boardService.getAllBoards();
-        BoardToViewBoardConverter converter = new BoardToViewBoardConverter(memberService);
+    public String GuestBook(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model){
+//        List<BoardDTO> boards = boardService.getAllBoards();
+//        BoardToViewBoardConverter converter = new BoardToViewBoardConverter(memberService);
         // 모든 board에서 찾아서 새로운 객채로 다시 맵핑해야됨
 
-        List<BoardViewDTO> convertBoard =boards.stream().map(board -> converter.convert(board)).collect(Collectors.toList());
-        model.addAttribute("boards", convertBoard);
+//        List<BoardViewDTO> convertBoard =boards.stream().map(board -> converter.convert(board)).collect(Collectors.toList());
+//        model.addAttribute("boards", convertBoard);
+
+        if(bindingResult.hasErrors()){
+            pageRequestDTO = pageRequestDTO.builder().build();
+        }
+        PageResponseDTO<BoardDTO> boards = boardService.getList(pageRequestDTO);
+
+        model.addAttribute("boards", boards);
 
         return "guestBook/board";
     }

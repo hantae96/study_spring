@@ -88,4 +88,5 @@ public class memberTest {
         Member 삭제삭제 = memberRepository.findOne("삭제삭제");
         Assertions.assertThat(삭제삭제).isNull();
     }
+
 }

@@ -28,4 +28,15 @@
         delete from boards where bid = #{bid}
     </delete>
 
+    <select id = "count" resultType="Integer">
+        select count(*) crom boards;
+    </select>
+
+    <select id="selectList" parameterType="com.example.toy.dto.PageRequestDTO" resultType="com.example.toy.dto.BoardDTO">
+        select * from boards order by bid desc limit #{skip}, #{size}
+    </select>
+
+    <select id = "getCount" resultType="int">
+        select count(*) from boards;
+    </select>
 </mapper>
