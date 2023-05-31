@@ -25,12 +25,28 @@ public class PageRequestDTO {
     @Positive
     private int size = 10;
 
+    private String link;
+
+    // 검색 조건을 위한  상태변수들
+    private String[] types;
+    private String keyword;
+
     // db의 limit 속성을 활용하기 위해
     // 1page에 있으면 처음부터 10개
     // 2page에 있으면 10개 가져오고, 10개
     // 3page 에 있으면 처음에서 20개 뛰어넘고 10개
     public int getSkip(){
         return (page - 1) * 10;
+    }
+
+    public String getLink(){
+        if(link==null){
+            StringBuilder builder = new StringBuilder();
+            builder.append("page=" + this.page);
+            builder.append("&size=" + this.size);
+            link = builder.toString();
+        }
+        return link;
     }
 
 }

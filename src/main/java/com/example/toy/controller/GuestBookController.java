@@ -36,6 +36,7 @@ public class GuestBookController {
 
     @GetMapping("guestBooks")
     public String GuestBook(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model){
+        log.info("페이지에서 넘어오는 정보들 {}",pageRequestDTO);
 //        List<BoardDTO> boards = boardService.getAllBoards();
 //        BoardToViewBoardConverter converter = new BoardToViewBoardConverter(memberService);
         // 모든 board에서 찾아서 새로운 객채로 다시 맵핑해야됨
@@ -55,6 +56,7 @@ public class GuestBookController {
 
     @GetMapping("guestBooks/{id}")
     public String selectBoard(@PathVariable("id") Integer bid,
+                              PageRequestDTO pageRequestDTO,
                               @SessionAttribute(name = SessionConst.LOGIN_MEMBER,required = false) Member loginMember,
                               Model model){
 

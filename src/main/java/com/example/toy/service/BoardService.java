@@ -8,11 +8,13 @@ import com.example.toy.dto.PageResponseDTO;
 import com.example.toy.repository.BoardRepository;
 import com.example.toy.repository.MemberRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class BoardService {
 
@@ -29,12 +31,14 @@ public class BoardService {
     public PageResponseDTO<BoardDTO> getList(PageRequestDTO pageRequestDTO){
         List<BoardDTO> boardDTOList = boardRepository.selectList(pageRequestDTO);
 
-        Integer count = boardRepository.getCount();
+        Integer count = boardDTOList.size();
 
         PageResponseDTO<BoardDTO> pageResponseDTO = PageResponseDTO.<BoardDTO>withAll().dtoList(boardDTOList)
                 .total(count)
                 .pageRequestDTO(pageRequestDTO)
                 .build();
+
+        log.info("pageResponse {}", pageResponseDTO.toString());
         return pageResponseDTO;
     }
 

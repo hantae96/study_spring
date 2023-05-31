@@ -184,7 +184,24 @@
 <!--      본문 작성-->
       <div class = "head">
         <h1>방명록</h1>
-        <a class="write btn btn-primary" th:href="@{/guestBooks/add}" style="margin: 10px">글쓰기</a>
+        <div class = "head-inner" style="display: flex">
+          <form action="guestBooks">
+            <div>
+              <input type="hidden" name = "size" th:value = "${pageRequestDTO.size}">
+            </div>
+            <div>
+              <input type="checkbox" name = "types" value="t">제목
+              <input type="checkbox" name = "types"  value="w">작성자
+            </div>
+            <div style="display: flex">
+              <input type="text" name="keyword" class = "form-control">
+              <button class = "btn btn-outline-primary" type = "submit">검색</button>
+            </div>
+            <div>
+            </div>
+          </form>
+          <a class="write btn btn-primary" th:href="@{/guestBooks/add}" style="margin: 10px">글쓰기</a>
+        </div>
       </div>
       <table class = "table table-hover">
         <thead class = "table-info">
@@ -196,7 +213,10 @@
         </thead>
         <tbody>
         <tr th:each = "board : ${boards.dtoList}">
-          <td ><a th:href = "@{/guestBooks/{id}(id = ${board.bid})}" th:text = "${board.title}"></a></td>
+          <td>
+<!--            <a th:href="@{/guestBooks/{id}/{link}(id=${board.bid}, link=${pageRequestDTO.link})}" th:text="${board.title}"></a>-->
+            <a th:href="@{/guestBooks/{id}(id=${board.bid},link=${pageRequestDTO.link})}" th:text = "${board.title}"></a>
+          </td>
           <td th:text = "${board.content}"></td>
           <td th:text = "${board.writerId}"></td>
 
