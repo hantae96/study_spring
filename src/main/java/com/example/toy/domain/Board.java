@@ -10,4 +10,6 @@ public class Board {
     private String title;
     private String content;
     private String writerId;
+
+
 }
